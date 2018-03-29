@@ -1,25 +1,33 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+    <mt-header fixed title="豆瓣电影"></mt-header>
+    <router-view></router-view>
+    <mt-tabbar v-model="selected">
+      <mt-tab-item id="外卖">
+        <img slot="icon" src="./assets/100x100.png">
+        <router-link to="/hot">正在上映</router-link>
+      </mt-tab-item>
+      <mt-tab-item id="订单">
+        <img slot="icon" src="./assets/100x100.png">
+        即将上映
+      </mt-tab-item>
+      <mt-tab-item id="发现">
+        <img slot="icon" src="./assets/100x100.png">
+        Top250
+      </mt-tab-item>
+    </mt-tabbar>
   </div>
 </template>
 
 <script>
+  import { Header } from 'mint-ui';
+  import { Tabbar, TabItem } from 'mint-ui';
+  import Vue from 'vue'
+  import 'mint-ui/lib/style.css'
+  import './css/reset.css'
+  Vue.component(Header.name, Header);
+  Vue.component(Tabbar.name, Tabbar);
+  Vue.component(TabItem.name, TabItem);
 export default {
   name: 'app',
   data () {
@@ -31,30 +39,14 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+.mint-header{
+  background:#35495e;
+  color: #fff;
 }
-
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
+  .mint-header-title{
+    font-size: 16px;
+  }
+  #app{
+    padding-top: 40px;
+  }
 </style>
