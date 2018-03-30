@@ -55,22 +55,26 @@
       }
       const screen=this.$refs.screen;
       const ul=this.$refs.ul;
-      if(screen.offsetHeight+screen.scrollTop>=ul.offsetHeight-1){
+      const lis=document.querySelectorAll('li');
+      const lastTop=lis[lis.length-1].offsetTop;
+      if(screen.offsetHeight+screen.scrollTop>=lastTop){
+        if(!this.loading){
         this.loading = true;
         this.getHot(this.start);
+        }
       }
   },
   getHot(start){
     Jsonp('https://api.douban.com/v2/movie/in_theaters',{start:start,count:10},function(data){
     this.list.length==0?this.list=data.subjects:[].push.apply(this.list,data.subjects);
         if(this.list.length==data.total){
-          this.end=true
+          this.end=true;
+           this.loading = false;
           return
         }
-        this.start+=10;
-      setTimeout(() => {
         this.loading = false;
-    }, 2500);
+        this.start+=10;
+        
       }.bind(this)
   )
   }
