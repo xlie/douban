@@ -51,11 +51,12 @@
   methods:{
     loadMore(ev) {
       if(this.end){
+        this.loading = false;
         return
       }
       const screen=this.$refs.screen;
       const ul=this.$refs.ul;
-      if(screen.offsetHeight+screen.scrollTop>+ul.offsetHeight-1){
+      if(screen.offsetHeight+screen.scrollTop>+ul.offsetHeight-3){
         this.loading = true;
         this.getHot(this.start);
       }
