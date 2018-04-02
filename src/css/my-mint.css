@@ -7,3 +7,6 @@
 .mint-spinner-fading-circle{
   margin: 0 auto;
 }
+.mint-tabbar{
+  position: static;
+}

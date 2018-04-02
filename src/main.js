@@ -11,3 +11,6 @@ new Vue({
     router,
     render: h => h(App)
 })
+Vue.filter('average', function(val) {
+  return val==0?'暂无评分':val
+});

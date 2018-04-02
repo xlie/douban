@@ -1,22 +1,23 @@
 <template>
   <div id="hot">
-    <mt-search
-      v-model="value"
-      placeholder="搜索">
-    </mt-search>
     <div class="screen" ref="screen" @scroll="loadMore($event)">
       <ul ref="ul">
         <li v-for="item in list">
           <img :src="item.images.large" :alt="item.alt"/>
+
           <div class="info">
             <p><span class="name">{{item.title}}</span> / {{item.year}}</p>
+
             <p>评分：{{item.rating.average}}</p>
+
             <p>观看人数：{{item.collect_count}}</p>
+
             <p>类型：
               <span v-for="val in item.genres">{{val}}/</span>
             </p>
+
             <p>导演：
-              <span v-for="val in item.directors">{{val.name}}</span>
+              <span v-for="val in item.directors">{{val.name}}/</span>
             </p>
           </div>
         </li>
@@ -24,7 +25,6 @@
       </ul>
 
       <p v-show="end" class="no-more">没有更多数据</p>
-
     </div>
   </div>
 </template>
@@ -51,49 +51,49 @@
   methods:{
     loadMore(ev) {
       if(this.end){
-        this.loading = false;
         return
       }
       const screen=this.$refs.screen;
       const ul=this.$refs.ul;
-      if(screen.offsetHeight+screen.scrollTop>+ul.offsetHeight-3){
+      const lis=document.querySelectorAll('li');
+      const lastTop=lis[lis.length-1].offsetTop;
+      if(screen.offsetHeight+screen.scrollTop>=lastTop-10){
+        if(!this.loading){
         this.loading = true;
         this.getHot(this.start);
+        }
       }
   },
   getHot(start){
     Jsonp('https://api.douban.com/v2/movie/in_theaters',{start:start,count:10},function(data){
     this.list.length==0?this.list=data.subjects:[].push.apply(this.list,data.subjects);
         if(this.list.length==data.total){
-          this.end=true
+          this.end=true;
+           this.loading = false;
           return
         }
-        this.start+=10;
-      setTimeout(() => {
         this.loading = false;
-    }, 2500);
+        this.start+=10;
+
       }.bind(this)
   )
   }
    },
   mounted (){
-    this.$nextTick(() => { this.$refs.screen.style.height=window.screen.height-147+'px'})
+//    this.$nextTick(() => { this.$refs.screen.style.height=window.screen.height-147+'px';})
     this.getHot(this.start);
+
   }
   }
 </script>
 
 <style scoped>
   #hot{
-    display: flex;
-    flex-direction: column;
-
+    height: 100%;
   }
   .screen{
-
-    overflow: scroll;
-    margin-bottom: 55px;
-    height: 500px;
+    overflow-y: auto;
+    height: 100%;
   }
   ul{
     background: #fbf9fe;
@@ -114,7 +114,8 @@
   }
   .info{
     float: left;
-    padding: 10px;
+    padding: 10px 0 10px 10px;
+
   }
   p{
     line-height: 30px;
