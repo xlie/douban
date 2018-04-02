@@ -14,3 +14,13 @@ new Vue({
 Vue.filter('average', function(val) {
   return val==0?'暂无评分':val
 });
+Vue.filter('join', function(val) {
+    return val.join('/');
+});
+Vue.filter('directorsJoin', function(val) {
+  var arr=[];
+  val.forEach((val)=>{
+    arr.push(val.name);
+  })
+  return arr.join('/');
+});

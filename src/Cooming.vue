@@ -106,17 +106,22 @@
   }
   p{
     text-align: center;
-    width: 135px;
-    height: 14px;
     padding-top: 10px;
     font-size: 12px;
-    text-overflow:ellipsis;
-    overflow: hidden;
+
   }
 
   .name{
+    width: 135px;
+    height: 14px;
     font-weight: 700;
     font-size: 14px;
+    text-overflow:ellipsis;
+    overflow: hidden;
+    white-space:nowrap;
+  }
+  .no-more{
+    text-align: center;
   }
 
 

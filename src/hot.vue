@@ -10,15 +10,11 @@
 
             <p>评分：{{item.rating.average}}</p>
 
-            <p>观看人数：{{item.collect_count}}</p>
+            <p>{{item.collect_count}}人看过</p>
 
-            <p>类型：
-              <span v-for="val in item.genres">{{val}}/</span>
-            </p>
+            <p>类型：{{item.genres|join}}</p>
 
-            <p>导演：
-              <span v-for="val in item.directors">{{val.name}}/</span>
-            </p>
+            <p>导演：{{item.directors|directorsJoin}}</p>
           </div>
         </li>
         <mt-spinner type="fading-circle" v-show="loading"></mt-spinner>
