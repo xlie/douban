@@ -17,6 +17,8 @@ const routes=[{
     path:'/top',component:Top
 },{
     path:'/detail',component:Detail
+  },{
+    path:'/',redirect: '/hot'
   },
 ]
 export default routes
