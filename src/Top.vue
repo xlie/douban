@@ -69,6 +69,7 @@
   },
 
   mounted (){
+    this.isShow=true;
     this.getHot(this.start);
   }
   }
