@@ -3,7 +3,7 @@
     <div class="screen" ref="screen" @scroll="loadMore($event)">
       <ul ref="ul">
         <router-link :to="{path:'/detail',query:{id:item.id}}" v-for="item in list">
-        <li v-for="item in list">
+        <li>
           <img :src="item.images.large" :alt="item.alt"/>
 
           <div class="info">

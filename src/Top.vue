@@ -10,8 +10,8 @@
     <loading v-show="isShow"></loading>
     <div class="screen" ref="screen">
       <ul ref="ul">
-        <router-link :to="{path:'/detail',query:{id:item.id}}" v-for="item in list">
-        <li v-for="(item,index) in list">
+        <router-link :to="{path:'/detail',query:{id:item.id}}" v-for="(item,index) in list">
+        <li>
           <div class="info">
             <p class="title"><span class="rank">NO.{{index+start+1}}</span>
               <span class="name">{{item.title}}</span>/{{item.year}}</p>
