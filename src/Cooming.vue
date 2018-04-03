@@ -2,16 +2,16 @@
   <div id="comming">
     <div class="screen" ref="screen" @scroll="loadMore($event)">
       <ul ref="ul">
-        <router-link :to="{path:'/detail',query:{id:item.id}}" v-for="item in list">
-          <li >
+          <li v-for="item in list">
+            <router-link :to="{path:'/detail',query:{id:item.id}}" >
             <img :src="item.images.large" :alt="item.alt"/>
 
             <div class="info">
               <p class="name">{{item.title}}</p>
               <p>评分：{{item.rating.average |average}}</p>
             </div>
+            </router-link>
           </li>
-        </router-link>
       </ul>
       <mt-spinner type="fading-circle" v-show="loading"></mt-spinner>
 
@@ -99,7 +99,7 @@
     float: left;
     box-shadow: 0 0 5px #ebeaee ;
     border-radius: 5px;
-    color: #333;
+
   }
   img{
     width: 135px;
@@ -126,8 +126,8 @@
   .no-more{
     text-align: center;
   }
-  a{
-    flex: 0;
+  .info{
+    color: #333;
   }
 
 
