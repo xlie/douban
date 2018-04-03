@@ -3,6 +3,8 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import routes from './router'
 import rem from './common/rem'
+import Loading from "./index"
+Vue.use(Loading);
 const router=new VueRouter({
   routes
 })

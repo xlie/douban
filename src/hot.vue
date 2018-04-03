@@ -2,6 +2,7 @@
   <div id="hot">
     <div class="screen" ref="screen" @scroll="loadMore($event)">
       <ul ref="ul">
+        <router-link :to="{path:'/detail',query:{id:item.id}}" v-for="item in list">
         <li v-for="item in list">
           <img :src="item.images.large" :alt="item.alt"/>
 
@@ -17,6 +18,7 @@
             <p>导演：{{item.directors|directorsJoin}}</p>
           </div>
         </li>
+        </router-link>
         <mt-spinner type="fading-circle" v-show="loading"></mt-spinner>
       </ul>
 
@@ -111,7 +113,7 @@
   .info{
     float: left;
     padding: 10px 0 10px 10px;
-
+    color: #333;
   }
   p{
     line-height: 30px;

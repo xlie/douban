@@ -1,10 +1,13 @@
 a<template>
   <div id="app">
-    <header>豆瓣电影</header>
+    <header v-show="$route.path!='/detail'">豆瓣电影</header>
+
     <div class="content" ref="content">
+      <transition :name="transitionName">
       <router-view ></router-view>
+      </transition>
     </div>
-    <div class="tabbar">
+    <div class="tabbar"  v-show="$route.path!='/detail'">
       <router-link to="/hot">
         <img  src="./assets/100x100.png">
         <span>正在上映</span>
@@ -35,12 +38,11 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome '
+      transitionName: 'slide-left'
     }
   },
   mounted (){
     this.$nextTick(() => { this.$refs.content.style.height=window.screen.height-95+'px';})
-
 
   }
 }
@@ -103,4 +105,20 @@ header{
     height: 20px;
 
   }
+.router {
+  position: absolute;
+  width: 100%;
+  transition: all .5s ease;
+}
+.slide-left-enter,
+.slide-right-leave-active {
+  transition: all .5s ease;
+  opacity: 0;
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  transition: all .5s ;
+  opacity: 0;
+}
 </style>

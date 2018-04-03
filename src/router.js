@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Hot from './Hot.vue'
 import Comming from './Cooming.vue'
 import Top from './Top.vue'
-
+import Detail from './Detail.vue'
 
 
 
@@ -15,6 +15,8 @@ const routes=[{
    },
   {
     path:'/top',component:Top
-},
+},{
+    path:'/detail',component:Detail
+  },
 ]
 export default routes

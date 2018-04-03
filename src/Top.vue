@@ -1,18 +1,20 @@
 <template>
-  <div id="Top">
-    <mt-navbar v-model="selected">
+  <div id="top">
+    <mt-navbar v-model="selected" fixed>
       <mt-tab-item id="1" @click.native="change(selected)">1～50</mt-tab-item>
       <mt-tab-item id="2" @click.native="change(selected)">51～100</mt-tab-item>
       <mt-tab-item id="3" @click.native="change(selected)">101～150</mt-tab-item>
       <mt-tab-item id="4" @click.native="change(selected)">151～200</mt-tab-item>
       <mt-tab-item id="5" @click.native="change(selected)">201～250</mt-tab-item>
     </mt-navbar>
-    <div class="screen" ref="screen" @scroll="loadMore($event)">
+    <loading v-show="isShow"></loading>
+    <div class="screen" ref="screen">
       <ul ref="ul">
+        <router-link :to="{path:'/detail',query:{id:item.id}}" v-for="item in list">
         <li v-for="(item,index) in list">
           <div class="info">
-            <p><span class="rank">NO.{{index+start+1}}</span>
-              <span class="name">{{item.title}}</span> / {{item.year}}</p>
+            <p class="title"><span class="rank">NO.{{index+start+1}}</span>
+              <span class="name">{{item.title}}</span>/{{item.year}}</p>
 
             <p>评分：{{item.rating.average}}</p>
 
@@ -24,12 +26,15 @@
           </div>
           <img :src="item.images.large" :alt="item.alt"/>
         </li>
+        </router-link>
       </ul>
     </div>
   </div>
 </template>
 
 <script>
+  import Loading from "./loading.vue"
+  Vue.use(Loading);
   import { Navbar, TabItem } from 'mint-ui';
   Vue.component(Navbar.name, Navbar);
   Vue.component(TabItem.name, TabItem);
@@ -40,21 +45,25 @@
   export default {
     data () {
     return {
-      selected:2,
-      value:'搜索',
+      selected:'1',
       list:[],
       start:0,
+      isShow:true
 
     }
   },
   methods:{
     getHot(start){
       Jsonp('https://api.douban.com/v2/movie/top250',{start:start,count:50},function(data){
-          this.list=data.subjects
+          this.list=data.subjects;
+          this.isShow=false;
         }.bind(this)
+
       )
     },change(val){
      this.start=(val-1)*50;
+      this.list=[];
+      this.isShow=true;
       this.getHot(this.start)
     },
   },
@@ -66,8 +75,9 @@
 </script>
 
 <style scoped>
-  #hot{
+  #top{
     height: 100%;
+    padding-top: 46px;
   }
   .screen{
     overflow-y: auto;
@@ -83,25 +93,29 @@
     background: #fff;
     margin: 15px 10px 0;
     overflow: hidden;
+    color: #333;
   }
   img{
-    width: 92px;
-    height: 128px;
+    width: 1.84rem;
+    height: 2.56rem;
     display: block;
-    float:right ;
-    padding: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
   }
   .info{
     float: left;
     padding: 10px 0 10px 10px;
 
   }
+  .title{
+    font-size: 12px;
+  }
   p{
     line-height: 30px;
   }
   .name{
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
   }
   .rank{
     display: inline-block;
@@ -115,7 +129,7 @@
     border-radius: 5px;
   }
   .directors{
-    width: 230px;
+    width: 220px;
     text-overflow:ellipsis;
     overflow: hidden;
     white-space:nowrap;

@@ -10,3 +10,6 @@
 .mint-tabbar{
   position: static;
 }
+.mint-navbar.is-fixed{
+  top: 40px;
+}
