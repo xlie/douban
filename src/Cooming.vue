@@ -95,7 +95,7 @@
     background: #fff;
     box-sizing: border-box;
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
     float: left;
     box-shadow: 0 0 5px #ebeaee ;
     border-radius: 5px;
@@ -125,6 +125,9 @@
   }
   .no-more{
     text-align: center;
+  }
+  a{
+    flex: 0;
   }
 
 
