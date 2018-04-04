@@ -8,8 +8,6 @@ import Detail from './Detail.vue'
 
 
 
-
-
 Vue.use(VueRouter)
 const routes=[{
   path:'/hot',component:Hot
